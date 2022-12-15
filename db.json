@@ -1,0 +1,15 @@
+{
+  "books": [
+    {
+      "bookImg": "asdasdsdas",
+      "name": "sadad",
+      "author": "asds",
+      "genre": "Science",
+      "edition": "2021",
+      "publisher": "asdad",
+      "price": "22",
+      "borrowed": "false",
+      "id": 6
+    }
+  ]
+}

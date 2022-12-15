@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <input id="email" placeholder="Email" type="text" />
+        <input id="pass" placeholder="Password" type="text" />
+        
+        <input type="submit" value="Submit" />
+      </form>
+</body>
+</html>
+<script>
+    let myForm=document.querySelector("form")
+    myForm.addEventListener("submit",adminData)
+    function adminData(e){
+e.preventDefault()
+let email=myForm.email.value
+let password=myForm.pass.value
+// console.log(email, password,"check")
+let data={email,password}
+  fetch("https://reqres.in/api/login",{
+    method:"POST",
+    headers:{
+        'Accept':"application/json",
+        'Content-Type':"application/json"
+    },
+    body:JSON.stringify(data)
+    
+  }).then((result)=> result.json()).then((value)=>{
+    if(value.token){
+        window.location.href="adminDashboard.html"
+    }
+    else{
+        alert("wrong email or password")
+    }
+  })
+
+    }
+</script>
