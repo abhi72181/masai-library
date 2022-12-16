@@ -1,15 +1,26 @@
 {
   "books": [
     {
-      "bookImg": "asdasdsdas",
-      "name": "sadad",
-      "author": "asds",
-      "genre": "Science",
+      "bookImg": "https://www.greenfieldjudaica.com/itemimageslarge/The%20Link.jpg",
+      "name": "link",
+      "author": "link",
+      "genre": "Fiction",
       "edition": "2021",
-      "publisher": "asdad",
-      "price": "22",
+      "publisher": "link",
+      "price": "230",
       "borrowed": "false",
-      "id": 6
+      "id": 7
+    },
+    {
+      "bookImg": "rttretr",
+      "name": "",
+      "author": "",
+      "genre": "",
+      "edition": "",
+      "publisher": "",
+      "price": "420",
+      "borrowed": "false",
+      "id": 8
     }
   ]
 }

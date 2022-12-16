@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
     <h1>admin</h1>
@@ -34,7 +35,7 @@
         <input type="submit" value="Submit" />
       </form>
 
-      <table>
+      <table border="1px" style="border-collapse: collapse;">
         <thead>
           <tr>
             <th>Book Image</th>
@@ -45,6 +46,7 @@
             
             <th>Publisher</th>
             <th>Price</th>
+            <th>Borrowed</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -53,6 +55,8 @@
           <!-- Append your data here  -->
         </tbody>
       </table>
+
+      
 </body>
 </html>
 <script>
@@ -67,8 +71,10 @@
             data.forEach((el,i)=>{
                 let tr=document.createElement("tr")
 
-                let bookImg=document.createElement("td")
-                bookImg.innerText=el.bookImg
+                let bookImg=document.createElement("img")
+                bookImg.src=el.bookImg
+                bookImg.setAttribute("width","100px")
+    bookImg.setAttribute("height","100px")
 
                 let name=document.createElement("td")
                 name.innerText=el.name
@@ -93,9 +99,10 @@
 
                 let Edit=document.createElement("button")
                 Edit.innerText="Edit"
-                Edit.addEventListener("click",function(){
-                    
-                })
+                Edit.setAttribute("id","edit")
+                Edit.setAttribute("class","w3-button")
+                Edit.setAttribute("class","w3-black")
+                Edit.addEventListener("click",editing)
 
                 let Delete=document.createElement("button")
                 Delete.innerText="Delete"
@@ -105,6 +112,73 @@
                         method:"DELETE"
                     })
                 })
+
+                function editing(){
+
+                    console.log("!")
+                    let divParent=document.createElement("div")
+                  
+                    divParent.setAttribute("class","w3-container")
+
+                    let div=document.createElement("div")
+                    div.setAttribute("id","id01")
+                    div.setAttribute("class","w3-modal")
+
+                    div.style.display='block'
+
+                    let div1=document.createElement("div")
+                    div1.setAttribute("class","w3-modal-content")
+
+                    let div2=document.createElement("div")
+                    div2.setAttribute("class","w3-container")
+
+                    let span1=document.createElement("span")
+                    // span1.addEventListener("click", function(){
+                    //     div.style.display="none"
+                    // })
+
+                    span1.setAttribute("class","w3-button")
+                    span1.setAttribute("class","w3-display-topright")
+                    
+                    let cross=document.createElement("button")
+                    cross.setAttribute("class","w3-display-topright")
+                    cross.innerText="x"
+                    cross.addEventListener("click",function(){
+                        divParent.style.display="none"
+                    })
+                    span1.append(cross)
+                    
+
+                    let imgUrl=document.createElement("input")
+                    imgUrl.placeholder="Add image url"
+
+                    let imgUrl1=document.createElement("input")
+                    imgUrl1.placeholder="Add image url"
+
+                    let imgUrl2=document.createElement("input")
+                    imgUrl2.placeholder="Add image url"
+
+                    let imgUrl3=document.createElement("input")
+                    imgUrl3.placeholder="Add image url"
+
+                    let submit=document.createElement("input")
+                    submit.type="submit"
+                    submit.value="submit"
+
+                    // let close=document.createElement("button")
+                    
+                    // close.innerText="close"
+                    // close.addEventListener("click",function(){
+                    //     return
+                    // })
+
+                    div2.append(span1,imgUrl,imgUrl1,imgUrl2,imgUrl3,submit)
+                    div1.append(div2)
+                    div.append(div1)
+                    divParent.append(div)
+                    document.querySelector("#edit").append(divParent)
+
+                }
 
                 tr.append(bookImg,name,author,genre,edition,publisher,price,borrowed,Edit,Delete)
 

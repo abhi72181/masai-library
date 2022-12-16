@@ -7,6 +7,82 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>user</h1>
+    <h1>user section</h1>
+    <select  id="filter">
+        <option value="">Filter by Genre</option>
+        <option value="Science">Science</option>
+        <option value="Fiction">Fiction</option>
+        <option value="History">History</option>
+        <option value="Tech">Tech</option>
+        <option value="Business">Business</option>
+        
+    </select>
+
+    <select  id="sort">
+        <option value="">Sort by price</option>
+        <option value="asc">Low to High</option>
+        <option value="desc">High to Low</option>
+    </select>
+    <div id="booksContainer"></div>
+
 </body>
 </html>
+<script>
+    getData()
+
+    let sorting=document.getElementById("sort")
+
+    sorting.addEventListener("change",function(){
+
+        fetch(`http://localhost:3000/books?_sort=price&_order=${sorting.value}`).then((val)=>val.json()).then((data)=>{
+            createDom(data)
+        })
+
+    })
+
+    function getData(){
+        fetch("http://localhost:3000/books").then((val)=>val.json()).then((data)=>{
+
+            createDom(data)
+
+        })
+    }
+    function createDom(data){
+        document.getElementById("booksContainer").textContent=""
+                data.forEach((el,i)=>{
+                let div=document.createElement("div")
+
+let bookImg=document.createElement("img")
+    bookImg.src=el.bookImg
+    bookImg.setAttribute("width","100px")
+    bookImg.setAttribute("height","100px")
+
+    let name=document.createElement("h2")
+    name.innerText=` ${el.name}`
+
+    let author=document.createElement("p")
+    author.innerText=`Author: ${el.author}`
+
+    let genre=document.createElement("p")
+    genre.innerText=`Genre: ${el.genre}`
+
+    let edition=document.createElement("p")
+    edition.innerText=`Edition: ${el.edition}`
+
+    let publisher=document.createElement("p")
+    publisher.innerText=`Publisher: ${el.publisher}`
+
+    let price=document.createElement("p")
+    price.innerText=`Price: ${el.price}`
+
+    let borrowed=document.createElement("button")
+    borrowed.innerText="Borrow"
+
+    div.append(bookImg,name,author,genre,edition,publisher,price,borrowed)
+    document.getElementById("booksContainer").append(div)
+
+
+
+            })
+            }
+</script>
