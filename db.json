@@ -1,28 +1,6 @@
 {
   "books": [
     {
-      "bookImg": "https://tse4.mm.bing.net/th?id=OIP.9mSye17W7m65UTjQ4cNpCgHaEo&pid=Api&P=0",
-      "name": "DeathNote",
-      "author": "Light Yagami",
-      "genre": "Fiction",
-      "edition": "2020",
-      "publisher": "japan",
-      "price": "220",
-      "borrowed": "true",
-      "id": 1
-    },
-    {
-      "bookImg": "https://cdn.pixabay.com/photo/2015/06/02/12/59/book-794978__480.jpg",
-      "name": "newbook",
-      "author": "abhi",
-      "genre": "Science",
-      "edition": "2021",
-      "publisher": "naga",
-      "price": "222",
-      "borrowed": "true",
-      "id": 2
-    },
-    {
       "bookImg": "https://cdn.pixabay.com/photo/2015/07/27/20/16/book-863418__480.jpg",
       "name": "book",
       "author": "abhi",
@@ -30,7 +8,7 @@
       "edition": "2022",
       "publisher": "annu",
       "price": "333",
-      "borrowed": "false",
+      "borrowed": "true",
       "id": 3
     }
   ]
