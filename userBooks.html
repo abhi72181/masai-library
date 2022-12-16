@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>user books</h1>
+    <div id="books"></div>
+</body>
+</html>
+<script>
+    getData()
+    function getData(){
+        fetch(`http://localhost:3000/books?borrowed=true`).then((val)=>val.json()).then((data)=>{
+            createDom(data)
+        })
+    }
+    function createDom(data){
+        document.getElementById("books").textContent=""
+                data.forEach((el,i)=>{
+                let div=document.createElement("div")
+
+let bookImg=document.createElement("img")
+    bookImg.src=el.bookImg
+    bookImg.setAttribute("width","100px")
+    bookImg.setAttribute("height","100px")
+
+    let name=document.createElement("h2")
+    name.innerText=` ${el.name}`
+
+    let author=document.createElement("p")
+    author.innerText=`Author: ${el.author}`
+
+    let genre=document.createElement("p")
+    genre.innerText=`Genre: ${el.genre}`
+
+    let edition=document.createElement("p")
+    edition.innerText=`Edition: ${el.edition}`
+
+    let publisher=document.createElement("p")
+    publisher.innerText=`Publisher: ${el.publisher}`
+
+    let price=document.createElement("p")
+    price.innerText=`Price: ${el.price}`
+
+    div.append(bookImg,name,author,genre,edition,publisher,price)
+    document.getElementById("books").append(div)
+
+            })
+            }
+</script>

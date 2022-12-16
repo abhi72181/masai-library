@@ -5,6 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .modaledit {
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+            rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+          width: 800px;
+          margin: auto;
+          display: none;
+        }
+        .modaledit form {
+          display: flex;
+          flex-wrap: wrap;
+          border: "2px solid black";
+          padding: 10px;
+          margin: 10px;
+        }
+        .modaledit form input {
+          margin: 10px;
+        }
+        .exit {
+          position: relative;
+          left: 97%;
+          padding: 5px;
+          color: red;
+          background-color: white;
+          border: 1px solid black;
+          border-radius: 5px;
+        }
+        /* img {
+          border: 1px solid black;
+          border-radius: 5px;
+          width: 50px;
+        } */
+        #idedit {
+          display: none;
+        }
+      </style>
 </head>
 <body>
     <h1>user section</h1>
@@ -24,6 +60,25 @@
         <option value="desc">High to Low</option>
     </select>
     <div id="booksContainer"></div>
+
+    <div id="modaledit" class="modaledit">
+        <button id="exit" class="exit">x</button>
+        <form id="formedit">
+          <input id="idedit" />
+          <img id="bookImgedit"   />
+          <h2 id="nameedit" ></h2>
+          <p id="authoredit" ></p>
+          <p id="borrowing" >John Doe</p>
+          <p  id="date" ></p>
+          
+          <p id="publisheredit" ></p>
+          <p id="priceedit" ></p>
+
+          <input type="submit" value="Close" />
+  
+          <input type="submit" value="Confirm" />
+        </form>
+      </div>
 
 </body>
 </html>
@@ -72,6 +127,26 @@
             createDom(data)
         })
     }
+
+    let borrowForm = document.querySelector("#formedit");
+    borrowForm.addEventListener("submit", user2);
+
+    function user2(e){
+        e.preventDefault()
+        let obj = {
+            id: borrowForm.idedit.value,
+      borrowed: "true"
+    };
+    // console.log(obj)
+    fetch(`http://localhost:3000/books/${obj.id}`, {
+      method: `PATCH`,
+      body: JSON.stringify(obj),
+      headers: { "Content-type": `application/json; charset=UTF-8` },
+    }).then((response) => response.json());
+
+    }
+
+
     function createDom(data){
         document.getElementById("booksContainer").textContent=""
                 data.forEach((el,i)=>{
@@ -102,12 +177,38 @@ let bookImg=document.createElement("img")
 
     let borrowed=document.createElement("button")
     borrowed.innerText="Borrow"
+    borrowed.addEventListener("click",function(){
+        editing(el)
+    })
+    
 
     div.append(bookImg,name,author,genre,edition,publisher,price,borrowed)
     document.getElementById("booksContainer").append(div)
 
+    
+    
 
 
             })
             }
+
+            function editing(e){
+                console.log("hi",e)
+        document.getElementById("modaledit").style = "display: block";
+    document.getElementById("idedit").value = e.id;
+    document.getElementById("bookImgedit").src = e.bookImg;
+    document.getElementById("bookImgedit").setAttribute("width","100px") 
+    document.getElementById("nameedit").innerText= e.name;
+    document.getElementById("authoredit").innerText = e.author;
+    // document.getElementById("genreedit").value = e.genre;
+    // document.getElementById("editionedit").value = e.edition;
+    document.getElementById("date").textContent = new Date()
+    document.getElementById("publisheredit").textContent = e.publisher;
+    document.getElementById("priceedit").textContent = e.price;
+    }
+
+            var element = document.getElementById("exit");
+  element.onclick = function (event) {
+    document.getElementById("modaledit").style = "display: none";
+  };
 </script>
