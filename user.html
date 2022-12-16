@@ -34,9 +34,35 @@
 
     sorting.addEventListener("change",function(){
 
-        fetch(`http://localhost:3000/books?_sort=price&_order=${sorting.value}`).then((val)=>val.json()).then((data)=>{
+        if(sorting.value==""){
+            fetch(`http://localhost:3000/books`).then((val)=>val.json()).then((data)=>{
             createDom(data)
         })
+        }
+        else{
+            fetch(`http://localhost:3000/books?_sort=price&_order=${sorting.value}`).then((val)=>val.json()).then((data)=>{
+            createDom(data)
+        })
+        }
+
+       
+
+    })
+
+    let filtering=document.getElementById("filter")
+    filtering.addEventListener("change",function(){
+
+        if(filtering.value==""){
+            fetch(`http://localhost:3000/books`).then((val)=>val.json()).then((data)=>{
+            createDom(data)
+        })
+        }
+        else{
+            fetch(`http://localhost:3000/books?genre=${filtering.value}`).then((val)=>val.json()).then((data)=>{
+            createDom(data)
+        })
+        }
+       
 
     })
 

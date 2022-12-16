@@ -6,6 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .modaledit {
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+            rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+          width: 800px;
+          margin: auto;
+          display: none;
+        }
+        .modaledit form {
+          display: flex;
+          flex-wrap: wrap;
+          border: "2px solid black";
+          padding: 10px;
+          margin: 10px;
+        }
+        .modaledit form input {
+          margin: 10px;
+        }
+        .exit {
+          position: relative;
+          left: 97%;
+          padding: 5px;
+          color: red;
+          background-color: white;
+          border: 1px solid black;
+          border-radius: 5px;
+        }
+        /* img {
+          border: 1px solid black;
+          border-radius: 5px;
+          width: 50px;
+        } */
+        #idedit {
+          display: none;
+        }
+      </style>
 </head>
 <body>
     <h1>admin</h1>
@@ -56,12 +92,44 @@
         </tbody>
       </table>
 
+      <div id="modaledit" class="modaledit">
+        <button id="exit" class="exit">x</button>
+        <form id="formedit">
+          <input id="idedit" />
+          <input id="bookImgedit" placeholder="Add image url" type="text" />
+          <input id="nameedit" placeholder="Book Name" type="text" />
+          <input id="authoredit" placeholder="Author Name" type="text" />
+  
+          <select id="genreedit">
+            <option value="">Select Category</option>
+            <option value="Science">Science</option>
+            <option value="Fiction">Fiction</option>
+            <option value="History">History</option>
+            <option value="Tech">Tech</option>
+            <option value="Business">Business</option>
+          </select>
+          <select id="editionedit">
+            <option value="">Select Category</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+          </select>
+          <input id="publisheredit" placeholder="Publisher" type="text" />
+          <input id="priceedit" placeholder="Book's Price" type="number" />
+  
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+
       
 </body>
 </html>
 <script>
     let adminForm=document.querySelector("form")
     adminForm.addEventListener("submit", admin)
+
+    let adminForm2 = document.querySelector("#formedit");
+  adminForm2.addEventListener("submit", admin2);
 
     
     function getData(){
@@ -97,12 +165,12 @@
                 let borrowed=document.createElement("td")
                 borrowed.innerText=el.borrowed
 
-                let Edit=document.createElement("button")
-                Edit.innerText="Edit"
-                Edit.setAttribute("id","edit")
-                Edit.setAttribute("class","w3-button")
-                Edit.setAttribute("class","w3-black")
-                Edit.addEventListener("click",editing)
+                let Edit = document.createElement("button");
+          Edit.innerText = "Edit";
+          Edit.setAttribute("id", "edit");
+          Edit.onclick = function (event) {
+            editing(el);
+          };
 
                 let Delete=document.createElement("button")
                 Delete.innerText="Delete"
@@ -113,72 +181,7 @@
                     })
                 })
 
-                function editing(){
-
-                    console.log("!")
-                    let divParent=document.createElement("div")
-                  
-                    divParent.setAttribute("class","w3-container")
-
-                    let div=document.createElement("div")
-                    div.setAttribute("id","id01")
-                    div.setAttribute("class","w3-modal")
-
-                    div.style.display='block'
-
-                    let div1=document.createElement("div")
-                    div1.setAttribute("class","w3-modal-content")
-
-                    let div2=document.createElement("div")
-                    div2.setAttribute("class","w3-container")
-
-                    let span1=document.createElement("span")
-                    // span1.addEventListener("click", function(){
-                    //     div.style.display="none"
-                    // })
-
-                    span1.setAttribute("class","w3-button")
-                    span1.setAttribute("class","w3-display-topright")
-                    
-                    let cross=document.createElement("button")
-                    cross.setAttribute("class","w3-display-topright")
-                    cross.innerText="x"
-                    cross.addEventListener("click",function(){
-                        divParent.style.display="none"
-                    })
-                    span1.append(cross)
-                    
-
-                    let imgUrl=document.createElement("input")
-                    imgUrl.placeholder="Add image url"
-
-                    let imgUrl1=document.createElement("input")
-                    imgUrl1.placeholder="Add image url"
-
-                    let imgUrl2=document.createElement("input")
-                    imgUrl2.placeholder="Add image url"
-
-                    let imgUrl3=document.createElement("input")
-                    imgUrl3.placeholder="Add image url"
-
-                    let submit=document.createElement("input")
-                    submit.type="submit"
-                    submit.value="submit"
-
-                    // let close=document.createElement("button")
-                    
-                    // close.innerText="close"
-                    // close.addEventListener("click",function(){
-                    //     return
-                    // })
-
-                    div2.append(span1,imgUrl,imgUrl1,imgUrl2,imgUrl3,submit)
-                    div1.append(div2)
-                    div.append(div1)
-                    divParent.append(div)
-                    document.querySelector("#edit").append(divParent)
-
-                }
+                
 
                 tr.append(bookImg,name,author,genre,edition,publisher,price,borrowed,Edit,Delete)
 
@@ -212,4 +215,43 @@
 
     }
     getData()
+
+    function admin2(e) {
+    e.preventDefault();
+    let obj = {
+      id: adminForm2.idedit.value,
+      bookImg: adminForm2.bookImgedit.value,
+      name: adminForm2.nameedit.value,
+      author: adminForm2.authoredit.value,
+      genre: adminForm2.genreedit.value,
+      edition: adminForm2.editionedit.value,
+      publisher: adminForm2.publisheredit.value,
+      price: adminForm2.priceedit.value,
+      borrowed: "false",
+    };
+    // console.log(obj)
+    fetch(`http://localhost:3000/books/${obj.id}`, {
+      method: `PATCH`,
+      body: JSON.stringify(obj),
+      headers: { "Content-type": `application/json; charset=UTF-8` },
+    }).then((response) => response.json());
+  }
+
+  function editing(e) {
+    // console.log(e)
+    document.getElementById("modaledit").style = "display: block";
+    document.getElementById("idedit").value = e.id;
+    document.getElementById("bookImgedit").value = e.bookImg;
+    document.getElementById("nameedit").value = e.name;
+    document.getElementById("authoredit").value = e.author;
+    document.getElementById("genreedit").value = e.genre;
+    document.getElementById("editionedit").value = e.edition;
+    document.getElementById("publisheredit").value = e.publisher;
+    document.getElementById("priceedit").value = e.price;
+  }
+
+  var element = document.getElementById("exit");
+  element.onclick = function (event) {
+    document.getElementById("modaledit").style = "display: none";
+  };
 </script>

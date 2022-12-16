@@ -1,26 +1,15 @@
 {
   "books": [
     {
-      "bookImg": "https://www.greenfieldjudaica.com/itemimageslarge/The%20Link.jpg",
-      "name": "link",
-      "author": "link",
+      "bookImg": "https://tse4.mm.bing.net/th?id=OIP.9mSye17W7m65UTjQ4cNpCgHaEo&pid=Api&P=0",
+      "name": "DeathNote",
+      "author": "Light Yagami",
       "genre": "Fiction",
-      "edition": "2021",
-      "publisher": "link",
-      "price": "230",
+      "edition": "2020",
+      "publisher": "japan",
+      "price": "220",
       "borrowed": "false",
-      "id": 7
-    },
-    {
-      "bookImg": "rttretr",
-      "name": "",
-      "author": "",
-      "genre": "",
-      "edition": "",
-      "publisher": "",
-      "price": "420",
-      "borrowed": "false",
-      "id": 8
+      "id": 1
     }
   ]
 }
